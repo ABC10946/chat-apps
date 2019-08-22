@@ -9,7 +9,12 @@ USER_DATA_PATH = 'data/users.txt'
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    if 'username' in session:
+        username = session['username']
+        return render_template('index.html', loggedin = True, username = username)
+    else:
+        return render_template('index.html', loggedin = False)
+
 
 @app.route('/read', methods=['GET', 'POST'])
 def read():
@@ -22,7 +27,7 @@ def read():
                     raw_text = f.read()
                     lines = raw_text.split('\n')
 
-                return render_template('read.html', lines = lines)
+                return render_template('read.html', lines = lines, username = session['username'])
 
         elif request.method == 'POST':
             with open(CHAT_DATA_PATH, 'a') as f:
@@ -41,7 +46,7 @@ def login():
             userdata = f.read()
             if request.form['username'] + ':' + request.form['password'] in userdata:
                 session['username'] = request.form['username']
-                return redirect(url_for('read'))
+                return redirect(url_for('index'))
             else:
                 return 'your user data not found!</br><a href="/">RETURN TO TOP</a>'
 

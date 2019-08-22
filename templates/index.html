@@ -1,4 +1,15 @@
 <html>
-    <p><h1>chat-apps</h1></p>
-    <a href="/read">let's start</a>
+    <head>
+        <title>Chat-Apps</title>
+    </head>
+    <body>
+        <p><h1>chat-apps</h1></p>
+        {% if loggedin %}
+        <p>USERNAME: {{ username }}</p>
+        <p><a href="/read">LET'S START CHAT!</a></p>
+        <p><a href="/logout">LOGOUT</a></p>
+        {% else %}
+        <p><a href="/login">LOGIN</a></p>
+        {% endif %}
+    </body>
 </html>
