@@ -3,6 +3,10 @@ import os
 from pathlib import Path
 app = Flask(__name__)
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 @app.route('/read', methods=['GET', 'POST'])
 def read():
     if not os.path.isfile('database.txt'):
@@ -13,7 +17,7 @@ def read():
             raw_text = f.read()
             lines = raw_text.split('\n')
 
-        return render_template('index.html', lines = lines)
+        return render_template('read.html', lines = lines)
 
     elif request.method == 'POST':
         with open('database.txt', 'a') as f:
