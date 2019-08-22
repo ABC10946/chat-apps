@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<head>
+    <title>Chat-Apps</title>
+</head>
+<body>
+    <form action="/read" method="POST">
+        throw:<input type="text" name="throw">
+    </form>
+    <div id="timeline">
+        {% for line in lines %}
+            {{ line }}</br>
+        {% endfor %}
+    </div>
+</body>
