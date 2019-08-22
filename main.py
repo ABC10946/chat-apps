@@ -42,13 +42,16 @@ def login():
     if request.method == 'GET':
         return render_template('login.html')
     elif request.method == 'POST':
-        with open(USER_DATA_PATH) as f:
-            userdata = f.read()
-            if request.form['username'] + ':' + request.form['password'] in userdata:
-                session['username'] = request.form['username']
-                return redirect(url_for('index'))
-            else:
-                return 'your user data not found!</br><a href="/">RETURN TO TOP</a>'
+        try:
+            with open(USER_DATA_PATH) as f:
+                userdata = f.read()
+                if request.form['username'] + ':' + request.form['password'] in userdata:
+                    session['username'] = request.form['username']
+                    return redirect(url_for('index'))
+                else:
+                    return 'your user data not found!</br><a href="/">RETURN TO TOP</a>'
+        except FileNotFoundError:
+            return 'user not found.<br><a href="/create_account">CREATE NEW ACCOUNT</a>'
 
 @app.route('/logout')
 def logout():
