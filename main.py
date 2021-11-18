@@ -77,4 +77,4 @@ def create_account():
 
 app.secret_key = 'k*IQ3E%TTv6lB^I3*MZPVKIL'
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=5000)
